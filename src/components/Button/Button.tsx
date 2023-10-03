@@ -1,12 +1,15 @@
 interface IProps {
     onClick: () => void;
     text: string;
+    disabled?: boolean;
 }
 
 
-export const Button = ({onClick, text}: IProps) =>  {
+export const Button = ({onClick, text, disabled = false}: IProps) =>  {
 
     return (
-        <button onClick={onClick}>{text}</ button>
+        <button onClick={onClick}
+                disabled={disabled}
+        >{text}</ button>
     );
 }

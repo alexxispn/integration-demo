@@ -44,3 +44,4 @@ it("should check could click on Button", async () => {
     fireEvent.click(button);
     expect(Button).toHaveBeenCalledTimes(1);
 });
+

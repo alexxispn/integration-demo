@@ -21,9 +21,10 @@ export const UserList = () => {
           <li key={person.id}>{person.name} </li>
         ))}
       </ul>
-      <Button 
-        text="Add" 
-        onClick={() => setPeople([...people, {id: '20', name: 'Other User'}])} 
+      <Button
+        text="Add"
+        onClick={() => setPeople([...people, {id: '20', name: 'Other User'}])}
+        disabled={undefined}
       />
     </>
   );
