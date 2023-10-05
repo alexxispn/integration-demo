@@ -1,8 +1,8 @@
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { UserList } from "./UserList";
-import { Button } from "../Button/Button";
 import { useUsers } from "../../hooks/useUsers";
 import userEvent from "@testing-library/user-event";
+
 
 const users = [
     { id: 1, name: "Pepa juana" },
@@ -16,6 +16,10 @@ jest.mock("../Button/Button", () => ({
 
 jest.mock("../../hooks/useUsers", () => ({
     useUsers: jest.fn()
+}));
+
+jest.mock("../UserTable/UserTable", () => ({
+    UserTable: jest.fn(() => <div>::UserTable::</div>),
 }));
 
 afterEach(() => {
@@ -33,6 +37,7 @@ describe("UserList", () => {
         });
         render(<UserList />);
         const linkElement = screen.queryByRole("list");
+
         expect(linkElement).not.toBeInTheDocument();
     });
 
@@ -44,28 +49,27 @@ describe("UserList", () => {
             filter: "",
             deleteUser: jest.fn(),
         });
-        await act(async () => render(<UserList />) as any);
+        render(<UserList />);
+        const UserTable = screen.getByText("::UserTable::");
+
         expect(useUsers).toHaveBeenCalledTimes(1);
-        expect(screen.getByRole("list")).toBeInTheDocument();
-        expect(screen.getAllByRole("listitem")).toHaveLength(3);
+        expect(UserTable).toBeInTheDocument();
     });
 
-
-    it("should could click on Button", async () => {
+    it("should could click Button", async () => {
         (useUsers as any).mockReturnValueOnce({
             users,
             addUser: jest.fn(),
             setFilter: jest.fn(),
             filter: "",
             deleteUser: jest.fn(),
-
         });
-        await act(async () => render(<UserList />) as any);
-        expect(screen.getByRole("list")).toBeInTheDocument();
-        expect(screen.getAllByRole("listitem")).toHaveLength(3);
-        const buttons = screen.getAllByText("::Button::");
+        render(<UserList />);
+        const Button = screen.getByText("::Button::");
 
-        userEvent.click(buttons[0]);
-        expect(Button).toHaveBeenCalledTimes(1);
+        userEvent.click(Button);
+
+        expect(Button).toBeInTheDocument();
+        expect(useUsers).toHaveBeenCalledTimes(1);
     });
 });
