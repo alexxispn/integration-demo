@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import { UserList } from './components/UserList/UserList';
+import { UserList } from './pages/UserList/UserList';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
-import { SearchPost } from './components/SearchPost/SearchPost';
-import { Post } from './components/Post/Post';
+import { SearchPost } from './pages/SearchPost/SearchPost';
+import { Post } from './pages/Post/Post';
 
 export const App = () => {
   return (
@@ -15,8 +15,8 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<p>Home</p>} />
           <Route path="/users" element={<UserList />} />
-          <Route path="/post" element={<SearchPost />}/>
-          <Route path="/post/:id" element={<Post />}/>
+          <Route path="/post" element={<SearchPost />} />
+          <Route path="/post/:id" element={<Post />} />
         </Routes>
       </BrowserRouter>
     </div>

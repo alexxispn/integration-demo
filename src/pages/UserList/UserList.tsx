@@ -1,6 +1,6 @@
-import { Button } from "../Button/Button";
+import { Button } from "../../components/Button/Button";
 import { useUsers } from "../../hooks/useUsers";
-import { UserTable } from "../UserTable/UserTable";
+import { UserTable } from "../../components/UserTable/UserTable";
 
 export const UserList = () => {
   const { users, addUser, setFilter, filter, deleteUser } = useUsers()

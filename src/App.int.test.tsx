@@ -1,4 +1,3 @@
-import React from "react";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import { getPostById as getPostByIdMocked } from "./services/postService";
@@ -14,7 +13,7 @@ test("Can search for a post using its ID", async () => {
   };
   (getPostByIdMocked as any).mockResolvedValueOnce(mockPost);
   await act(async () => render(
-      <App />
+    <App />
   ) as any);
 
   const searchPostLink = screen.getByText('Go to Post');

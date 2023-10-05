@@ -2,11 +2,11 @@ import { render, screen } from "@testing-library/react"
 import { Post } from "./Post"
 import { useParams } from 'react-router-dom';
 import { usePost } from "../../hooks/usePost";
-import { PostContainer } from "../PostContainer/PostContainer";
+import { PostContainer } from "../../components/PostContainer/PostContainer";
 
 jest.mock('react-router-dom', () => ({
     ...jest.requireActual('react-router-dom'),
-    useParams: jest.fn(() => ({id: '::id::'}))
+    useParams: jest.fn(() => ({ id: '::id::' }))
 }))
 
 jest.mock('../../hooks/usePost', () => ({
@@ -17,13 +17,13 @@ jest.mock('../../hooks/usePost', () => ({
     }))
 }))
 
-jest.mock('../PostContainer/PostContainer', () => ({
+jest.mock('../../components/PostContainer/PostContainer', () => ({
     PostContainer: jest.fn(() => <div>::PostContainer</div>)
 }))
 
 describe('Post', () => {
     test('should render without erros', () => {
-        render(<Post/>)
+        render(<Post />)
         const title = screen.getByText(`Post ::id::`)
         const postContainer = screen.getByText('::PostContainer');
         expect(title).toBeInTheDocument();
@@ -34,8 +34,8 @@ describe('Post', () => {
     })
 
     test('should render title without id when is not received by params', () => {
-        jest.mocked(useParams).mockReturnValue({id: undefined})
-        render(<Post/>);
+        jest.mocked(useParams).mockReturnValue({ id: undefined })
+        render(<Post />);
         const title = screen.getByText(`Post`)
         expect(title).toBeInTheDocument()
     })

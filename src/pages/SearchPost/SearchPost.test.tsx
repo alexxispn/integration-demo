@@ -1,8 +1,8 @@
 import React from "react";
-import {act, render, screen} from "@testing-library/react";
-import {getPostById as getPostByIdMocked} from '../../services/postService';
-import {SearchPost} from "./SearchPost";
-import {BrowserRouter} from "react-router-dom";
+import { act, render, screen } from "@testing-library/react";
+import { getPostById as getPostByIdMocked } from '../../services/postService';
+import { SearchPost } from "./SearchPost";
+import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 const mockPost = {
@@ -22,7 +22,7 @@ jest.mock('react-router-dom', () => ({
     useNavigate: () => mockUseNavigate,
 }));
 
-jest.mock("../Button/Button", () => ({
+jest.mock("../../components/Button/Button", () => ({
     Button: jest.fn(() => <button >Submit</button>)
 }));
 
@@ -33,7 +33,7 @@ describe('SearchPost', () => {
         (getPostByIdMocked as any).mockResolvedValueOnce(mockPost);
         await act(async () => render(
             <BrowserRouter>
-                <SearchPost/>
+                <SearchPost />
             </BrowserRouter>
         ) as any);
 
@@ -47,7 +47,7 @@ describe('SearchPost', () => {
     test('Button should be enabled if there is no postId set', async () => {
         await act(async () => render(
             <BrowserRouter>
-                <SearchPost/>
+                <SearchPost />
             </BrowserRouter>
         ) as any);
 
@@ -61,7 +61,7 @@ describe('SearchPost', () => {
     test.skip('should navigate to Post detail page when clicking on enabled button', async () => {
         render(
             <BrowserRouter>
-                <SearchPost/>
+                <SearchPost />
             </BrowserRouter>
         );
         const input = screen.getByLabelText('Post ID:')

@@ -10,7 +10,7 @@ const users = [
     { id: 3, name: "Pepa" },
 ];
 
-jest.mock("../Button/Button", () => ({
+jest.mock("../../components/Button/Button", () => ({
     Button: jest.fn(() => <div>::Button::</div>),
 }));
 
@@ -18,7 +18,7 @@ jest.mock("../../hooks/useUsers", () => ({
     useUsers: jest.fn()
 }));
 
-jest.mock("../UserTable/UserTable", () => ({
+jest.mock("../../components/UserTable/UserTable", () => ({
     UserTable: jest.fn(() => <div>::UserTable::</div>),
 }));
 

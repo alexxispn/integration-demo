@@ -1,4 +1,3 @@
-import React from "react";
 import { act, render, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 import { getPostById as getPostByIdMocked } from "../../services/postService";

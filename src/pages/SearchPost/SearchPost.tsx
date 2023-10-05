@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "../Button/Button";
+import { Button } from "../../components/Button/Button";
 
 export const SearchPost = (): JSX.Element => {
   const navigate = useNavigate()
