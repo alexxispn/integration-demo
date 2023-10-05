@@ -8,11 +8,12 @@ import { Post } from "../Post/Post";
 
 jest.mock("../../services/postService");
 
-beforeAll(() => {
+beforeEach(() => {
   window.history.pushState({}, 'Post detail', '/post');
 })
 
 afterEach(jest.clearAllMocks)
+
 
 test("Can search for a post using its ID", async () => {
   const mockPost = {
@@ -47,27 +48,26 @@ test("Can search for a post using its ID", async () => {
   expect(screen.getByText(mockPost.body)).toBeInTheDocument();
 });
 
-test.skip('should not render anything if router does not exists', async () => {
+test('should not render anything if router does not exists', async () => {
   const mockPost2 = {
     id: "abcde",
     title: "Post Title",
     body: "Post Body",
   };
   (getPostByIdMocked as any).mockResolvedValueOnce(mockPost2);
-  let renderTools: any;
   await act(async () =>
-  renderTools = render(
-    <BrowserRouter>
-      <Routes>
-        <Route path="/post" element={<SearchPost />} />
-        <Route path="/post/:id" element={<Post />} />
-      </Routes>
-    </BrowserRouter>
-  ) as any);
-  const { container } = renderTools
-  user.type(screen.getByLabelText(/post id/i), mockPost2.id);
-  const submitButton = screen.getByText(/submit/i);
+    render(
+      <BrowserRouter>
+        <Routes>
+          <Route path="/post" element={<SearchPost />} />
+          <Route path="/post/:id" element={<Post />} />
+        </Routes>
+      </BrowserRouter>
+    ) as any);
+  user.type(screen.getByLabelText(/Post ID/i), mockPost2.id);
+  const submitButton = screen.getByText("Submit");
   user.click(submitButton);
 
-  expect(container.childElementCount).toBe(0)
+  expect(screen.queryByText("Post Title")).not.toBeInTheDocument();
+  expect(screen.queryByText("Post Body")).not.toBeInTheDocument();
 })

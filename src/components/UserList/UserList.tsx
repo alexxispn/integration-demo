@@ -1,31 +1,40 @@
-import React, { useEffect, useState } from "react";
-import {Button} from "../Button/Button";
-import { getUsers } from '../../services/userService';
+import { Button } from "../Button/Button";
+import { useUsers } from "../../hooks/useUsers";
+
+
+export interface User {
+  id: string;
+  name: string;
+}
 
 export const UserList = () => {
-  const [people, setPeople] = useState<undefined | object[]>(undefined);
+  const { users, addUser, setFilter, filter, deleteUser } = useUsers()
 
-  useEffect(() => {
-    const asyncFunction = async () => setPeople(await getUsers())
-    asyncFunction()
-  }, []);
-
-  if (!people) {
+  if (!users) {
     return null;
   }
 
   return (
     <>
+      <input
+        type="text"
+        value={filter}
+        onChange={(e) => setFilter(e.target.value)}
+      />
       <ul>
-        {people.map((person: any) => (
-          <li key={person.id}>{person.name} </li>
+        {users.map((user: User) => (
+          <li key={user.id}>
+            <p>{user.name}</p>
+            <Button text="Delete" onClick={deleteUser(user.id)} />
+          </li>
         ))}
       </ul>
+
       <Button
         text="Add"
-        onClick={() => setPeople([...people, {id: '20', name: 'Other User'}])}
-        disabled={undefined}
+        onClick={() => addUser({ id: "1", name: "Pepa" })}
       />
     </>
   );
-}
+};
+
